@@ -10,16 +10,18 @@ while True:
         colonne = saisir_colonne_joueur_actif(lnom[joueur_actif])
         if 0 <= colonne < 7 and grille[0][colonne] == " ":
             grille = mette_a_jour_grille(grille, colonne, joueur_actif)
-            if (partie_finie(grille, joueur_actif)):
+            ok = partie_finie(grille, joueur_actif)
+            if ok == 1:
                 afficher_grille(grille)
                 mettre_a_jour_score(init_score, joueur_actif)
                 affiche_victoire(lnom[joueur_actif])
                 break
-            elif verifier_pat(grille):
+            elif ok == 2:
                 afficher_grille(grille)
                 afficher_pat()
                 break
-            joueur_actif = changer_joueur_actif(joueur_actif)
+            elif ok == 0:
+                joueur_actif = changer_joueur_actif(joueur_actif)
         else:
             print("Mauvaise colonne.")
     afficher_scores(lnom,init_score)

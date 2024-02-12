@@ -63,23 +63,26 @@ def mette_a_jour_grille(grille,colonne_joue,code_joueur_actif):
         return grille
 
 def partie_finie(grille,code_joueur_actif):
+    if not " " in grille[0]:
+        return 2 # plein
+
     for row in grille:
         for i in range(len(row) - 3):
             if all(cell == str(code_joueur_actif) for cell in row[i:i+4]):
-                return True
+                return 1
     for col in range(len(grille[0])):
         for i in range(len(grille) - 3):
             if all(grille[row][col] == str(code_joueur_actif) for row in range(i, i+4)):
-                return True
+                return 1
     for row in range(len(grille) - 3):
         for col in range(len(grille[0]) - 3):
             if all(grille[row+i][col+i] == str(code_joueur_actif) for i in range(4)):
-                return True
+                return 1
     for row in range(len(grille) - 3):
         for col in range(3, len(grille[0])):
             if all(grille[row+i][col-i] == str(code_joueur_actif) for i in range(4)):
-                return True
-    return False
+                return 1
+    return 0
 
 def changer_joueur_actif(code_joueur_actif):
     code_joueur_actif = (code_joueur_actif + 1)%2
